@@ -1,5 +1,5 @@
 Instantiating classes in Python is straightforward. To instantiate a class, simply call the class as if it were a function, passing the arguments that the __init__ method defines. The return value will be the newly created object.
-
+实例化Python很简单，像调用函数一样，函数的返回值就是新的对象
 Example 5.7. Creating a FileInfo Instance
 >>> import fileinfo
 >>> f = fileinfo.FileInfo("/music/_singles/kairo.mp3") 1
@@ -11,13 +11,14 @@ Example 5.7. Creating a FileInfo Instance
 {'name': '/music/_singles/kairo.mp3'}
 1	You are creating an instance of the FileInfo class (defined in the fileinfo module) and assigning the newly created instance to the variable f. You are passing one parameter, /music/_singles/kairo.mp3, which will end up as the filename argument in FileInfo's __init__ method.
 2	Every class instance has a built-in attribute, __class__, which is the object's class. (Note that the representation of this includes the physical address of the instance on my machine; your representation will be different.) Java programmers may be familiar with the Class class, which contains methods like getName and getSuperclass to get metadata information about an object. In Python, this kind of metadata is available directly on the object itself through attributes like __class__, __name__, and __bases__.
+2 每个对象都有一些内置属性，比如__class__，它代表的是实例化当前对象的类信息，也可以叫做元数据
 3	You can access the instance's doc string just as with a function or a module. All instances of a class share the same doc string.
 4	Remember when the __init__ method assigned its filename argument to self["name"]? Well, here's the result. The arguments you pass when you create the class instance get sent right along to the __init__ method (along with the object reference, self, which Python adds for free).
 Note
 In Python, simply call a class as if it were a function to create a new instance of the class. There is no explicit new operator like C++ or Java.
 5.4.1. Garbage Collection
 If creating new instances is easy, destroying them is even easier. In general, there is no need to explicitly free instances, because they are freed automatically when the variables assigned to them go out of scope. Memory leaks are rare in Python.
-
+垃圾回收是自动的，对象在超出作用域时会被销毁。它的原理是引用计数。
 Example 5.8. Trying to Implement a Memory Leak
 >>> def leakmem():
 ...     f = fileinfo.FileInfo('/music/_singles/kairo.mp3') 1
