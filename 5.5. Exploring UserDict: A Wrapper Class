@@ -8,12 +8,17 @@ class UserDict:                                1
         self.data = {}                         3
         if dict is not None: self.update(dict) 4 5
 1	Note that UserDict is a base class, not inherited from any other class.
+1   UserDict没有继承任何类
 2	This is the __init__ method that you overrode in the FileInfo class. Note that the argument list in this ancestor class is different than the descendant. That's okay; each subclass can have its own set of arguments, as long as it calls the ancestor with the correct arguments. Here the ancestor class has a way to define initial values (by passing a dictionary in the dict argument) which the FileInfo does not use.
+2   子类和父类的__init__方法参数可以不一样
 3	Python supports data attributes (called “instance variables” in Java and Powerbuilder, and “member variables” in C++). Data attributes are pieces of data held by a specific instance of a class. In this case, each instance of UserDict will have a data attribute data. To reference this attribute from code outside the class, you qualify it with the instance name, instance.data, in the same way that you qualify a function with its module name. To reference a data attribute from within the class, you use self as the qualifier. By convention, all data attributes are initialized to reasonable values in the __init__ method. However, this is not required, since data attributes, like local variables, spring into existence when they are first assigned a value.
+3   同一类的不同实例化的对象有各自属性值，属性在第一次复制的时候自动创建
 4	The update method is a dictionary duplicator: it copies all the keys and values from one dictionary to another. This does not clear the target dictionary first; if the target dictionary already has some keys, the ones from the source dictionary will be overwritten, but others will be left untouched. Think of update as a merge function, not a copy function.
+4   update方法会合并字典属性到当前实例
 5	This is a syntax you may not have seen before (I haven't used it in the examples in this book). It's an if statement, but instead of having an indented block starting on the next line, there is just a single statement on the same line, after the colon. This is perfectly legal syntax, which is just a shortcut you can use when you have only one statement in a block. (It's like specifying a single statement without braces in C++.) You can use this syntax, or you can have indented code on subsequent lines, but you can't do both for the same block.
 Note
 Java and Powerbuilder support function overloading by argument list, i.e. one class can have multiple methods with the same name but a different number of arguments, or arguments of different types. Other languages (most notably PL/SQL) even support function overloading by argument name; i.e. one class can have multiple methods with the same name and the same number of arguments of the same type but different argument names. Python supports neither of these; it has no form of function overloading whatsoever. Methods are defined solely by their name, and there can be only one method per class with a given name. So if a descendant class has an __init__ method, it always overrides the ancestor __init__ method, even if the descendant defines it with a different argument list. And the same rule applies to any other method.
+Python 不支持方法重载，同一个类方法名唯一，子类覆盖父类同名方法。
 Note
 Guido, the original author of Python, explains method overriding this way: "Derived classes may override methods of their base classes. Because methods have no special privileges when calling other methods of the same object, a method of a base class that calls another method defined in the same base class, may in fact end up calling a method of a derived class that overrides it. (For C++ programmers: all methods in Python are effectively virtual.)" If that doesn't make sense to you (it confuses the hell out of me), feel free to ignore it. I just thought I'd pass it along.
 Caution
@@ -36,6 +41,7 @@ Example 5.10. UserDict Normal Methods
 Note
 In versions of Python prior to 2.2, you could not directly subclass built-in datatypes like strings, lists, and dictionaries. To compensate for this, Python comes with wrapper classes that mimic the behavior of these built-in datatypes: UserString, UserList, and UserDict. Using a combination of normal and special methods, the UserDict class does an excellent imitation of a dictionary. In Python 2.2 and later, you can inherit classes directly from built-in datatypes like dict. An example of this is given in the examples that come with this book, in fileinfo_fromdict.py.
 In Python, you can inherit directly from the dict built-in datatype, as shown in this example. There are three differences here compared to the UserDict version.
+在Python中，自定义类可以直接继承内置类型
 
 Example 5.11. Inheriting Directly from Built-In Datatype dict
 class FileInfo(dict):                  1
