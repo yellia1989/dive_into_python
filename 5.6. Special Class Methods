@@ -1,4 +1,5 @@
 In addition to normal class methods, there are a number of special methods that Python classes can define. Instead of being called directly by your code (like normal methods), special methods are called for you by Python in particular circumstances or when specific syntax is used.
+Python中类的一些特定命名的方法在一些特殊场合被调用，这些方法被叫做特殊方法，一般以__开始，__结束。
 
 As you saw in the previous section, normal methods go a long way towards wrapping a dictionary in a class. But normal methods alone are not enough, because there are a lot of things you can do with dictionaries besides call methods on them. For starters, you can get and set items with a syntax that doesn't include explicitly invoking methods. This is where special class methods come in: they provide a way to map non-method-calling syntax into method calls.
 
@@ -13,6 +14,7 @@ Example 5.12. The __getitem__ Special Method
 >>> f["name"]             2
 '/music/_singles/kairo.mp3'
 1	The __getitem__ special method looks simple enough. Like the normal methods clear, keys, and values, it just redirects to the dictionary to return its value. But how does it get called? Well, you can call __getitem__ directly, but in practice you wouldn't actually do that; I'm just doing it here to show you how it works. The right way to use __getitem__ is to get Python to call it for you.
+1   []调用__getitem__方法
 2	This looks just like the syntax you would use to get a dictionary value, and in fact it returns the value you would expect. But here's the missing link: under the covers, Python has converted this syntax to the method call f.__getitem__("name"). That's why __getitem__ is a special class method; not only can you call it yourself, you can get Python to call it for you by using the right syntax.
 Of course, Python has a __setitem__ special method to go along with __getitem__, as shown in the next example.
 
@@ -61,5 +63,6 @@ Example 5.15. Setting an MP3FileInfo's name
 'name': '/music/_singles/sidewinder.mp3', 'year': '2000', 
 'comment': 'http://mp3.com/cynicproject'}
 1	First, you create an instance of MP3FileInfo, without passing it a filename. (You can get away with this because the filename argument of the __init__ method is optional.) Since MP3FileInfo has no __init__ method of its own, Python walks up the ancestor tree and finds the __init__ method of FileInfo. This __init__ method manually calls the __init__ method of UserDict and then sets the name key to filename, which is None, since you didn't pass a filename. Thus, mp3file initially looks like a dictionary with one key, name, whose value is None.
+1   子类没有__init__方法，Python将找到父类的__init__方法。
 2	Now the real fun begins. Setting the name key of mp3file triggers the __setitem__ method on MP3FileInfo (not UserDict), which notices that you're setting the name key with a real value and calls self.__parse. Although you haven't traced through the __parse method yet, you can see from the output that it sets several other keys: album, artist, genre, title, year, and comment.
 3	Modifying the name key will go through the same process again: Python calls __setitem__, which calls self.__parse, which sets all the other keys.
