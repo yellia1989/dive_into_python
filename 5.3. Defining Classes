@@ -1,7 +1,7 @@
 Python is fully object-oriented: you can define your own classes, inherit from your own or built-in classes, and instantiate the classes you've defined.
-
+Python是完全面向对象的，你可以定义继承自定义类或内建类型的类。
 Defining a class in Python is simple. As with functions, there is no separate interface definition. Just define the class and start coding. A Python class starts with the reserved word class, followed by the class name. Technically, that's all that's required, since a class doesn't need to inherit from any other class.
-
+定义类很简单，只需要以class关键字开始就行了，不需要继承自任何系统类。
 Example 5.3. The Simplest Python Class
 class Loaf: 1
     pass    2 3
@@ -29,10 +29,14 @@ class FileInfo(UserDict):
     "store file metadata"              1
     def __init__(self, filename=None): 2 3 4
 1	Classes can (and should) have doc strings too, just like modules and functions.
+1   类和模块和函数一样可以有注释
 2	__init__ is called immediately after an instance of the class is created. It would be tempting but incorrect to call this the constructor of the class. It's tempting, because it looks like a constructor (by convention, __init__ is the first method defined for the class), acts like one (it's the first piece of code executed in a newly created instance of the class), and even sounds like one (“init” certainly suggests a constructor-ish nature). Incorrect, because the object has already been constructed by the time __init__ is called, and you already have a valid reference to the new instance of the class. But __init__ is the closest thing you're going to get to a constructor in Python, and it fills much the same role.
+2   __init__方法会在类实例化后被自动调用
 3	The first argument of every class method, including __init__, is always a reference to the current instance of the class. By convention, this argument is always named self. In the __init__ method, self refers to the newly created object; in other class methods, it refers to the instance whose method was called. Although you need to specify self explicitly when defining the method, you do not specify it when calling the method; Python will add it for you automatically.
+3   每个类方法的第一参数都是self，它代表的是正在操作的对象实例
 4	__init__ methods can take any number of arguments, and just like functions, the arguments can be defined with default values, making them optional to the caller. In this case, filename has a default value of None, which is the Python null value.
 Note
+4   __init__方法除了self外可以带n个参数，这些参数可以用来实现实例化时初始化默认值
 By convention, the first argument of any Python class method (the reference to the current instance) is called self. This argument fills the role of the reserved word this in C++ or Java, but self is not a reserved word in Python, merely a naming convention. Nonetheless, please don't call it anything but self; this is a very strong convention.
 Example 5.6. Coding the FileInfo Class
 class FileInfo(UserDict):
@@ -42,15 +46,19 @@ class FileInfo(UserDict):
         self["name"] = filename        2
                                        3
 1	Some pseudo-object-oriented languages like Powerbuilder have a concept of “extending” constructors and other events, where the ancestor's method is called automatically before the descendant's method is executed. Python does not do this; you must always explicitly call the appropriate method in the ancestor class.
+1   和C++不同，子类的__init__不会自动调用父类的__init__函数
 2	I told you that this class acts like a dictionary, and here is the first sign of it. You're assigning the argument filename as the value of this object's name key.
+2   继承自UserDict使得self可以像字典一样保存属性值
 3	Note that the __init__ method never returns a value.
+3   __init__没有返回值
 5.3.2. Knowing When to Use self and __init__
 When defining your class methods, you must explicitly list self as the first argument for each method, including __init__. When you call a method of an ancestor class from within your class, you must include the self argument. But when you call your class method from outside, you do not specify anything for the self argument; you skip it entirely, and Python automatically adds the instance reference for you. I am aware that this is confusing at first; it's not really inconsistent, but it may appear inconsistent because it relies on a distinction (between bound and unbound methods) that you don't know about yet.
-
+定义类的所有方法时，第一个参数必须是self,子类方法中调用父类方法时要主动传入self,在对象外调用类方法时不用手动传递self
 Whew. I realize that's a lot to absorb, but you'll get the hang of it. All Python classes work the same way, so once you learn one, you've learned them all. If you forget everything else, remember this one thing, because I promise it will trip you up:
 
 Note
 __init__ methods are optional, but when you define one, you must remember to explicitly call the ancestor's __init__ method (if it defines one). This is more generally true: whenever a descendant wants to extend the behavior of the ancestor, the descendant method must explicitly call the ancestor method at the proper time, with the proper arguments.
+__init__方法不是必须的，子类覆盖父类的方法时在最后在手动调用父类的方法。
 Further Reading on Python Classes
 Learning to Program has a gentler introduction to classes.
 How to Think Like a Computer Scientist shows how to use classes to model compound datatypes.
