@@ -1,0 +1,12 @@
+That's it for the hard-core object trickery. You'll see a real-world application of special class methods in Chapter 12, which uses getattr to create a proxy to a remote web service.
+
+The next chapter will continue using this code sample to explore other Python concepts, such as exceptions, file objects, and for loops.
+
+Before diving into the next chapter, make sure you're comfortable doing all of these things:
+
+Importing modules using either import module or from module import
+Defining and instantiating classes
+Defining __init__ methods and other special class methods, and understanding when they are called
+Subclassing UserDict to define classes that act like dictionaries
+Defining data attributes and class attributes, and understanding the differences between them
+Defining private attributes and methods
