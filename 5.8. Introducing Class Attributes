@@ -1,5 +1,5 @@
 You already know about data attributes, which are variables owned by a specific instance of a class. Python also supports class attributes, which are variables owned by the class itself.
-
+实例对象有自己的属性，类也有自己的属性，类的属性所有对象共享。
 Example 5.17. Introducing Class Attributes
 class MP3FileInfo(FileInfo):
     "store ID3v1.0 MP3 tags"
@@ -32,6 +32,7 @@ class MP3FileInfo(FileInfo):
 3	Class attributes are available both through direct reference to the class and through any instance of the class.
 Note
 In Java, both static variables (called class attributes in Python) and instance variables (called data attributes in Python) are defined immediately after the class definition (one with the static keyword, one without). In Python, only class attributes can be defined here; data attributes are defined in the __init__ method.
+Python的类属性在类定义完成后就已经生成了，实例属性在__init__方法后生成
 Class attributes can be used as class-level constants (which is how you use them in MP3FileInfo), but they are not really constants. You can also change them.
 
 Note
@@ -59,7 +60,9 @@ Example 5.18. Modifying Class Attributes
 >>> counter.count
 2
 1	count is a class attribute of the counter class.
+1   count是类属性
 2	__class__ is a built-in attribute of every class instance (of every class). It is a reference to the class that self is an instance of (in this case, the counter class).
+2   __class__是每个实例都有的指向类的元数据
 3	Because count is a class attribute, it is available through direct reference to the class, before you have created any instances of the class.
 4	Creating an instance of the class calls the __init__ method, which increments the class attribute count by 1. This affects the class itself, not just the newly created instance.
 5	Creating a second instance will increment the class attribute count again. Notice how the class attribute is shared by the class and all instances of the class.
