@@ -13,6 +13,7 @@ Example 3.15. Defining a tuple
 1	A tuple is defined in the same way as a list, except that the whole set of elements is enclosed in parentheses instead of square brackets.
 1 tuple定义以小括号开始
 2	The elements of a tuple have a defined order, just like a list. Tuples indices are zero-based, just like a list, so the first element of a non-empty tuple is always t[0].
+2 tuple和list都是有序的
 3	Negative indices count from the end of the tuple, just as with a list.
 4	Slicing works too, just like a list. Note that when you slice a list, you get a new list; when you slice a tuple, you get a new tuple.
 Example 3.16. Tuples Have No Methods
@@ -33,12 +34,17 @@ AttributeError: 'tuple' object has no attribute 'index'
 >>> "z" in t           4
 True
 1	You can't add elements to a tuple. Tuples have no append or extend method.
+1 tuple不能增加元素
 2	You can't remove elements from a tuple. Tuples have no remove or pop method.
+2 tuple不能删除元素
 3	You can't find elements in a tuple. Tuples have no index method.
+3 tuple不能查找元素
 4	You can, however, use in to see if an element exists in the tuple.
+4 tuple能判断元素是否存在
 So what are tuples good for?
 
 Tuples are faster than lists. If you're defining a constant set of values and all you're ever going to do with it is iterate through it, use a tuple instead of a list.
+tuple比list更快
 It makes your code safer if you “write-protect” data that does not need to be changed. Using a tuple instead of a list is like having an implied assert statement that shows this data is constant, and that special thought (and a specific function) is required to override that.
 Remember that I said that dictionary keys can be integers, strings, and “a few other types”? Tuples are one of those types. Tuples can be used as keys in a dictionary, but lists can't be used this way.Actually, it's more complicated than that. Dictionary keys must be immutable. Tuples themselves are immutable, but if you have a tuple of lists, that counts as mutable and isn't safe to use as a dictionary key. Only tuples of strings, numbers, or other dictionary-safe tuples can be used as dictionary keys.
 Tuples are used in string formatting, as you'll see shortly.
