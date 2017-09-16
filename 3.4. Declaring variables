@@ -1,7 +1,7 @@
 Now that you know something about dictionaries, tuples, and lists (oh my!), let's get back to the sample program from Chapter 2, odbchelper.py.
 
 Python has local and global variables like most other languages, but it has no explicit variable declarations. Variables spring into existence by being assigned a value, and they are automatically destroyed when they go out of scope.
-
+python变量也分局部和全局变量，python不用声明变量，变量会在赋值的时候自动创建，超出作用域的时候自动销毁
 Example 3.17. Defining the myParams Variable
 if __name__ == "__main__":
     myParams = {"server":"mpilgrim", \
