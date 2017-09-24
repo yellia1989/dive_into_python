@@ -1,5 +1,5 @@
 Python allows function arguments to have default values; if the function is called without the argument, the argument gets its default value. Futhermore, arguments can be specified in any order by using named arguments. Stored procedures in SQL Server Transact/SQL can do this, so if you're a SQL Server scripting guru, you can skim this part.
-
+Python函数的参数可以有默认值，同时也支持命名参数
 Here is an example of info, a function with two optional arguments:
 
 def info(object, spacing=10, collapse=1):
