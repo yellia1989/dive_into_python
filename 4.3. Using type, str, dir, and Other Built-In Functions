@@ -1,5 +1,5 @@
 Python has a small set of extremely useful built-in functions. All other functions are partitioned off into modules. This was actually a conscious design decision, to keep the core language from getting bloated like other scripting languages (cough cough, Visual Basic).
-
+Python的内核只提供很基础的功能，其余的功能都以模块的方式扩展
 4.3.1. The type Function
 The type function returns the datatype of any arbitrary object. The possible types are listed in the types module. This is useful for helper functions that can handle several types of data.
 
