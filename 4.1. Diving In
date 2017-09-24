@@ -1,0 +1,50 @@
+Here is a complete, working Python program. You should understand a good deal about it just by looking at it. The numbered lines illustrate concepts covered in Chapter 2, Your First Python Program. Don't worry if the rest of the code looks intimidating; you'll learn all about it throughout this chapter.
+
+Example 4.1. apihelper.py
+If you have not already done so, you can download this and other examples used in this book.
+
+def info(object, spacing=10, collapse=1): 1 2 3
+    """Print methods and doc strings.
+    
+    Takes module, class, list, dictionary, or string."""
+    methodList = [method for method in dir(object) if callable(getattr(object, method))]
+    processFunc = collapse and (lambda s: " ".join(s.split())) or (lambda s: s)
+    print "\n".join(["%s %s" %
+                      (method.ljust(spacing),
+                       processFunc(str(getattr(object, method).__doc__)))
+                     for method in methodList])
+
+if __name__ == "__main__":                4 5
+    print info.__doc__
+1	This module has one function, info. According to its function declaration, it takes three parameters: object, spacing, and collapse. The last two are actually optional parameters, as you'll see shortly.
+2	The info function has a multi-line doc string that succinctly describes the function's purpose. Note that no return value is mentioned; this function will be used solely for its effects, rather than its value.
+3	Code within the function is indented.
+4	The if __name__ trick allows this program do something useful when run by itself, without interfering with its use as a module for other programs. In this case, the program simply prints out the doc string of the info function.
+5	if statements use == for comparison, and parentheses are not required.
+The info function is designed to be used by you, the programmer, while working in the Python IDE. It takes any object that has functions or methods (like a module, which has functions, or a list, which has methods) and prints out the functions and their doc strings.
+
+Example 4.2. Sample Usage of apihelper.py
+>>> from apihelper import info
+>>> li = []
+>>> info(li)
+append     L.append(object) -- append object to end
+count      L.count(value) -> integer -- return number of occurrences of value
+extend     L.extend(list) -- extend list by appending list elements
+index      L.index(value) -> integer -- return index of first occurrence of value
+insert     L.insert(index, object) -- insert object before index
+pop        L.pop([index]) -> item -- remove and return item at index (default last)
+remove     L.remove(value) -- remove first occurrence of value
+reverse    L.reverse() -- reverse *IN PLACE*
+sort       L.sort([cmpfunc]) -- sort *IN PLACE*; if given, cmpfunc(x, y) -> -1, 0, 1
+By default the output is formatted to be easy to read. Multi-line doc strings are collapsed into a single long line, but this option can be changed by specifying 0 for the collapse argument. If the function names are longer than 10 characters, you can specify a larger value for the spacing argument to make the output easier to read.
+
+Example 4.3. Advanced Usage of apihelper.py
+>>> import odbchelper
+>>> info(odbchelper)
+buildConnectionString Build a connection string from a dictionary Returns string.
+>>> info(odbchelper, 30)
+buildConnectionString          Build a connection string from a dictionary Returns string.
+>>> info(odbchelper, 30, 0)
+buildConnectionString          Build a connection string from a dictionary
+    
+    Returns string.
